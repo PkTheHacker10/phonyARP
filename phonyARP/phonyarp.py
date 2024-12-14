@@ -1,3 +1,3 @@
-def spoofer():
-    data="hi test" 
-    print(data)
+class handler():
+    def __init__(self):
+        pass
