@@ -1,3 +1,3 @@
 def spoofer():
-    data="hi"
+    data="hi test" 
     print(data)
