@@ -1,10 +1,8 @@
-from modules.banner import create_banner
+from phonyARP.modules.banner import banner
 
 class handler():
-    def __init__(self):
-        pass
     def banner(self):
-        banner=create_banner()
-        return 
-    def stat(self):
-        print(self.banner())
+        phony_banner=banner.banner()
+        print(phony_banner)
+    def start(self):
+        self.banner()

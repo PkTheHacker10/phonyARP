@@ -1,8 +1,9 @@
-from phonyARP.phonyarp import spoofer
+from phonyARP.phonyarp import handler
 
 
 def main():
-    spoofer()
+    phonyhandler=handler()
+    phonyhandler.start()
     
 if __name__=="__main__":
     main()

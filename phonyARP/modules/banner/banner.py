@@ -1,6 +1,6 @@
 from colorama import Back,Fore,Style
 from random import choice
-from art import text2art
+from art import text2art # type: ignore
 
 red=Fore.RED
 green=Fore.GREEN
@@ -21,4 +21,3 @@ def banner():
     selected_font=choice(all_fonts)
     Ascii_text=text2art(f"{name}",font=selected_font)
     return f"{bright}{selected_colour}{Ascii_text}{reset}"
-banner()
