@@ -1,3 +1,9 @@
 *.sh
+
 testpy/
+
 .gitignore
+
+__pycache__/
+*.pyc
+*.pyo
