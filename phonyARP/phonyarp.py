@@ -1,8 +1,10 @@
 from phonyARP.modules.banner import banner
+from phonyARP.modules.cli import cli
 
 class handler():
-    def banner(self):
-        phony_banner=banner.banner()
-        print(phony_banner)
+    def __init__(self):
+        self.toolbanner=banner.banner()
+        self.args=cli.args()
     def start(self):
-        self.banner()
+        print(self.toolbanner)
+        print(self.args)
