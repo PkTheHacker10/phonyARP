@@ -22,6 +22,7 @@ class handler():
         self.help=help.help()
         
     def start(self):
+        
         print(self.toolbanner)
         print(self.args)
         print(self.help)
