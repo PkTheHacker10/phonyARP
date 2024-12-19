@@ -21,4 +21,4 @@ def banner():
     selected_colour=choice(all_colour)
     selected_font=choice(all_fonts)
     Ascii_text=text2art(f"{name}",font=selected_font)
-    print(f"\n{bright}{selected_colour}{Ascii_text}{reset}")
+    return f"\n{bright}{selected_colour}{Ascii_text}{reset}"

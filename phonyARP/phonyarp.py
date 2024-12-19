@@ -6,55 +6,47 @@ red=Fore.RED
 blue=Fore.BLUE
 bright=Style.BRIGHT
 white=Fore.WHITE
+yellow=Fore.YELLOW
 reset=Style.RESET_ALL
 
 try:
     from phonyARP.modules.banner import banner
     from phonyARP.modules.cli import cli
-    from phonyARP.modules.help import help
-    from phonyARP.modules.version import version
-    from phonyARP.modules.file import file
-    from phonyARP.modules.arp.spoofer import ArpSpoofer
+    from phonyARP.modules.arp.spoofer import *
     
 except ImportError as e:
     print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
     sys.exit()
     
 class Phonyhandler():
-    
-    def __init__(self):
-        self.toolbanner=banner.banner()
-        self.args=cli.args()
-        self.help=help.help()
-        self.version=version.get_version()
-        self.file_handler=file.FileHandler()
-        self.spoofer_handler=ArpSpoofer()
-        
+
     def handler(self):
         # Function will handle the phonyARP.  
-        try: 
-            interface=self.args.interface
-            target_ip=self.args.target
-            gateway_ip=self.args.gateway
-            is_help=self.args.help
+        try:
+            interface=cli.args().interface
+            target_ip=cli.args().target
+            gateway_ip=cli.args().gateway
             
-            if is_help:
-                print(self.help)
-                exit()
+            if cli.args().help:
+                print(help.help())
+                exit(0)
                 
             if (interface is not None) and (target_ip is not None) and (gateway_ip is not None):
-                self.toolbanner
-                print("spoofing started..")
-                target_mac=self.spoofer_handler.get_mac_addr(target_ip)
-                gateway_mac=self.spoofer_handler.get_mac_addr(gateway_ip)
-                target_spoof_thread=Thread(target=self.spoofer_handler.arp_spoofer,args=(target_ip,target_ip,target_mac,interface)).start()
+                print(f"{bright}{yellow}[+] {reset}{blue}Spoofing started{reset} :{bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}]")
+                target_mac=get_mac_addr(target_ip)
+                gateway_mac=get_mac_addr(gateway_ip)
+                if target_ip != 1 and gateway_mac != 1:
+                    print(f"Target  [Ip:Mac] :{target_ip} : {target_mac}")
+                    print(f"Gateway [Ip:Mac] :{gateway_ip} : {gateway_mac}")
+                else:
+                    exit(1)
+                target_spoof_thread=Thread(target=arp_spoofer,args=(target_ip,target_mac,interface)).start()
                 #gateway_spoof_thread=Thread(target=self.handler.arp_spoofer,args=(gateway_ip,target_ip,target_mac,self.interface)).start()
                     
                 
             else:
-                print(self.toolbanner)
                 print(f"[{bright}{red}ERROR{reset}]: Missing required argumets.")
-                print(f" Usage :{sys.argv[0]} -i <interface> -t <target> -g <gateway>\n Use --help for more information.")
+                print(f" Usage :{sys.argv[0]} -i <interface> -t <target> -g <gateway>\n Use --help for more information.\n")
                 exit(1)
                 
         except KeyboardInterrupt:
@@ -65,6 +57,8 @@ class Phonyhandler():
             
     def start(self):
         try:
+            phonyarp_bannner=banner.banner()
+            print(phonyarp_bannner)
             self.handler()
             
         except KeyboardInterrupt:
