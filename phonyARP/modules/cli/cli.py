@@ -1,11 +1,13 @@
-from colorama import Fore,Style 
+import sys
 import argparse
 import requests
+from colorama import Fore,Style 
 
 red=Fore.RED
 blue=Fore.BLUE
 white=Fore.WHITE
 magenta=Fore.MAGENTA
+green=Fore.GREEN
 bold=Style.BRIGHT
 reset=Style.RESET_ALL
 
