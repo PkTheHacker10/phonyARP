@@ -25,6 +25,9 @@ def get_mac_addr(ip):
     
     except IndexError:
         return 1
+    
+    except PermissionError:
+        raise PermissionError
         
     except Exception as e:
         print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")

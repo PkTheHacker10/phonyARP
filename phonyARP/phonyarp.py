@@ -60,7 +60,9 @@ class Phonyhandler():
                         
                         target_spoof_thread.join()
                         gateway_spoof_thread.join()
-
+                        
+                except PermissionError:
+                    print(f"{bright}{blue}INFO:{reset}Permission error. Run it as a root or administartor{e}")
                         
                 except KeyboardInterrupt:
                     # Ro signal threads to stop.
@@ -72,7 +74,7 @@ class Phonyhandler():
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Quiting....")
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Arp Spoof Restoring {reset}{bright}{green}Started")
                     spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface)
-                
+
             else:
                 print(f"[{bright}{red}ERROR{reset}]: Missing required argumets.")
                 print(f" Usage :{sys.argv[0]} -i <interface> -t <target> -g <gateway>\n Use --help for more information.\n")
