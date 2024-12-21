@@ -21,10 +21,13 @@ except ImportError as e:
     print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
     sys.exit()
     
+except KeyboardInterrupt:
+    print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting before start :(")
+    
 class Phonyhandler():
-
+    # Class which handle the phonyARP spoofing.
     def handler(self):
-        # Function will handle the phonyARP.  
+        # Handler funtion for phony ARP.  
         try:
             interface=cli.args().interface
             target_ip=cli.args().target
@@ -55,10 +58,16 @@ class Phonyhandler():
                         gateway_spoof_thread.join()
                     else:
                         quit()
+                        
                 except KeyboardInterrupt:
-                    stop_event.set()  # Signal threads to stop
+                    # Ro signal threads to stop.
+                    stop_event.set()  
                     target_spoof_thread.join()
                     gateway_spoof_thread.join()
+                    
+                    # Restore from Arp poisoning.
+                    print(f"{bright}{yellow}\n[+] {reset}{bright}{blue}Quiting")
+                    print(f"{bright}{yellow}\n[+] {reset}{blue}Restoring started")
                     spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface)
                 
             else:
@@ -67,8 +76,12 @@ class Phonyhandler():
                 exit(1)
                 
         except KeyboardInterrupt:
-            print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n")  
+            print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n") 
             
+        except NameError:
+            # To prevent from quick exit.
+            pass    
+        
         except Exception as e:
             print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Unexpected Exception in handler :{e}\n")
 
@@ -79,6 +92,10 @@ class Phonyhandler():
             print(phonyarp_bannner)
             self.handler()
             
+        except NameError:
+            # To prevent from quick exit.
+            pass
+        
         except KeyboardInterrupt:
             print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n")
         

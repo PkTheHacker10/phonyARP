@@ -29,19 +29,32 @@ def get_mac_addr(ip):
         print(f"{bright}{blue}INFO:{reset}Unexpected Mac Error:{e}")
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
-    # Funtion to restore spoofed arp table to back its original.
+    # Funtion to restore spoofed arp table(both target and gateway) to back its original.
     for packet in range(1,6):
         sleep(0.2)
         try:
-            target_arp_restore_packet = Ether(dst=target_mac) / ARP(op=2,psrc=gateway_ip,hwsrc=gateway_mac, hwdst=target_mac, pdst=target_ip)
-            sendp(target_arp_restore_packet,iface=interface,verbose=False)
-
+            target_arp_restore_rpacket = Ether(dst=target_mac) / ARP(op=2,
+                                                                     psrc=gateway_ip,
+                                                                     hwsrc=gateway_mac,
+                                                                     hwdst=target_mac,
+                                                                     pdst=target_ip
+                                                                     )
+            
+            sendp(target_arp_restore_rpacket,iface=interface,verbose=False)
+            
+            gateway_arp_restore_rpacket=Ether(dst=gateway_mac)/ARP(op=2,
+                                                                   psrc=target_ip,
+                                                                   hwsrc=target_mac,
+                                                                   hwdst=gateway_mac,
+                                                                   pdst=target_ip
+                                                                   )
+            sendp(gateway_arp_restore_rpacket,iface=interface,verbose=False)
             
         except Exception as e:
             print(f"{bright}{blue}INFO:{reset}Unexpected Error:{e}")
             break    
-    print(f"{bright}{yellow}\n[+] {reset}{blue}Target spoof {bright}status: {red}Stoped{reset}")
-    print(f"{bright}{yellow}[+] {reset}{blue}Gateway spoof {bright}status: {red}Stoped{reset}")    
+    print(f"{bright}{yellow}\n[+] {reset}{blue}Target restoration {bright}status: {red}Done{reset}")
+    print(f"{bright}{yellow}[+] {reset}{blue}Gateway restoration {bright}status: {red}Done{reset}")    
     
 def arp_spoofer(target_ip,target_mac,spoof_ip,interface):
     # Function to create spoofed replay_packet sent.
