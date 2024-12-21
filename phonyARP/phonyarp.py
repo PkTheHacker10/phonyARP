@@ -86,7 +86,7 @@ class Phonyhandler():
             pass    
         
         except Exception as e:
-            print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Unexpected Exception in handler :{e}\n")
+            print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Unexpected Handler Error :{e}\n")
 
             
     def start(self):

@@ -30,7 +30,7 @@ def args():
         print(f"{bold}{blue}INFO:{reset}Please use -h to get more information.")
         
     except Exception as e:
-        print(f"{bold}{blue}INFO:{reset}Unexpected Error:{e}")
+        print(f"{bold}{blue}INFO:{reset}Unexpected Argument Error:{e}")
         
 def help():
     # Funtion to create and return the available options and flags.

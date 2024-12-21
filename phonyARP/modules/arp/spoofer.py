@@ -27,7 +27,7 @@ def get_mac_addr(ip):
         return 1
         
     except Exception as e:
-        print(f"{bright}{blue}INFO:{reset}Unexpected Mac Error:{e}")
+        print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
         return 1
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
@@ -53,7 +53,7 @@ def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
             sendp(gateway_arp_restore_rpacket,iface=interface,verbose=False)
             
         except Exception as e:
-            print(f"{bright}{blue}INFO:{reset}Unexpected Error:{e}")
+            print(f"{bright}{blue}INFO:{reset}Unexpected Spoof restorer Error:{e}")
             break    
     print(f"{bright}{yellow}\n [+] {reset}{blue}Target restoration {bright}status: {green}Done{reset}")
     print(f"{bright}{yellow} [+] {reset}{blue}Gateway restoration {bright}status: {green}Done{reset}")    
@@ -67,5 +67,5 @@ def arp_spoofer(target_ip,target_mac,spoof_ip,interface):
             sleep(0.1)
             
         except Exception as e:
-            print(f"{bright}{blue}INFO:{reset}Unexpected Error:{e}")
+            print(f"{bright}{blue}INFO:{reset}Unexpected Spoof Error:{e}")
             break
