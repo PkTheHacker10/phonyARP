@@ -43,10 +43,10 @@ class Phonyhandler():
                     if target_ip != 1 and gateway_mac != 1:
                         # Check the given ip is reachable or not.
                         print(f"{bright}{yellow}[+] {reset}{blue}Target spoof {bright}status:{green}running{reset}")
-                        target_spoof_thread=Thread(target=arp_spoofer,args=(target_ip,target_mac,gateway_ip,target_mac,interface))
+                        target_spoof_thread=Thread(target=arp_spoofer,args=(target_ip,target_mac,gateway_ip,interface))
                     
                         print(f"{bright}{yellow}[+] {reset}{blue}Gateway spoof {bright}status:{green}running{reset}")
-                        gateway_spoof_thread=Thread(target=arp_spoofer,args=(gateway_ip,gateway_mac,target_ip,target_mac,interface))
+                        gateway_spoof_thread=Thread(target=arp_spoofer,args=(gateway_ip,gateway_mac,target_ip,interface))
                         
                         target_spoof_thread.start()
                         gateway_spoof_thread.start()
@@ -59,6 +59,7 @@ class Phonyhandler():
                     stop_event.set()  # Signal threads to stop
                     target_spoof_thread.join()
                     gateway_spoof_thread.join()
+                    spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface)
                 
             else:
                 print(f"[{bright}{red}ERROR{reset}]: Missing required argumets.")
