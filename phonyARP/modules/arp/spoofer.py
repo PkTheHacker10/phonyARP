@@ -9,6 +9,7 @@ bright=Style.BRIGHT
 white=Fore.WHITE
 yellow=Fore.YELLOW
 red=Fore.RED
+green=Fore.GREEN
 reset=Style.RESET_ALL
 stop_event=Event()
 
@@ -18,15 +19,16 @@ def get_mac_addr(ip):
         ether_frame=Ether(dst="ff:ff:ff:ff:ff:ff")
         arp_packet=ARP(pdst=ip)
         sent_packet=ether_frame/arp_packet
-        answer,unanswer=srp(sent_packet,verbose=False)
-        return answer[0].answer.src
+        answer,unanswer=srp(sent_packet,verbose=False,timeout=2)
+        if answer[0]:
+            return answer[0].answer.src
     
     except IndexError:
-        print(f"{bright}{blue}INFO:{reset}Ip isn't reachable.")
-        quit()
-    
+        return 1
+        
     except Exception as e:
         print(f"{bright}{blue}INFO:{reset}Unexpected Mac Error:{e}")
+        return 1
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
     # Funtion to restore spoofed arp table(both target and gateway) to back its original.
@@ -53,8 +55,8 @@ def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
         except Exception as e:
             print(f"{bright}{blue}INFO:{reset}Unexpected Error:{e}")
             break    
-    print(f"{bright}{yellow}\n[+] {reset}{blue}Target restoration {bright}status: {red}Done{reset}")
-    print(f"{bright}{yellow}[+] {reset}{blue}Gateway restoration {bright}status: {red}Done{reset}")    
+    print(f"{bright}{yellow}\n [+] {reset}{blue}Target restoration {bright}status: {green}Done{reset}")
+    print(f"{bright}{yellow} [+] {reset}{blue}Gateway restoration {bright}status: {green}Done{reset}")    
     
 def arp_spoofer(target_ip,target_mac,spoof_ip,interface):
     # Function to create spoofed replay_packet sent.

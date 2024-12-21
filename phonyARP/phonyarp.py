@@ -35,20 +35,24 @@ class Phonyhandler():
             
             if cli.args().help:
                 print(cli.help())
-                exit(0)
+                exit()
                 
             if (interface is not None) and (target_ip is not None) and (gateway_ip is not None):
                 try:
-                    print(f"{bright}{yellow}[+] {reset}{blue}Spoofing started{reset} :{bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}]")
+                    print(f"{bright}{yellow}\n [+] {reset}{blue}Spoofing started{reset} {blue}({reset} {bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}] {blue}){reset}")
+                    print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {green}{bright}started{reset}")
                     target_mac=get_mac_addr(target_ip)
                     gateway_mac=get_mac_addr(gateway_ip)
                     
-                    if target_ip != 1 and gateway_mac != 1:
+                    if target_ip==1 and gateway_mac==1 :
                         # Check the given ip is reachable or not.
-                        print(f"{bright}{yellow}[+] {reset}{blue}Target spoof {bright}status:{green}running{reset}")
+                        print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {bright}{red}Failed{reset} \n{bright}{yellow} [+]{reset} {blue}Check the ip is correct or not.\n{reset}")
+                        exit(1)
+                    else:                      
+                        print(f"{bright}{yellow} [+] {reset}{blue}Target spoof {bright}status:{green}running{reset}")
                         target_spoof_thread=Thread(target=arp_spoofer,args=(target_ip,target_mac,gateway_ip,interface))
                     
-                        print(f"{bright}{yellow}[+] {reset}{blue}Gateway spoof {bright}status:{green}running{reset}")
+                        print(f"{bright}{yellow} [+] {reset}{blue}Gateway spoof {bright}status:{green}running{reset}")
                         gateway_spoof_thread=Thread(target=arp_spoofer,args=(gateway_ip,gateway_mac,target_ip,interface))
                         
                         target_spoof_thread.start()
@@ -56,8 +60,7 @@ class Phonyhandler():
                         
                         target_spoof_thread.join()
                         gateway_spoof_thread.join()
-                    else:
-                        quit()
+
                         
                 except KeyboardInterrupt:
                     # Ro signal threads to stop.
@@ -66,8 +69,8 @@ class Phonyhandler():
                     gateway_spoof_thread.join()
                     
                     # Restore from Arp poisoning.
-                    print(f"{bright}{yellow}\n[+] {reset}{bright}{blue}Quiting")
-                    print(f"{bright}{yellow}\n[+] {reset}{blue}Restoring started")
+                    print(f"{bright}{yellow}\n [+] {reset}{blue}Quiting....")
+                    print(f"{bright}{yellow}\n [+] {reset}{blue}Arp Spoof Restoring {reset}{bright}{green}Started")
                     spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface)
                 
             else:
