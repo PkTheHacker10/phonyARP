@@ -13,9 +13,9 @@ reset=Style.RESET_ALL
 stop_event=Event()
 
 try:
-    from .banner import banner
-    from .cli import cli
-    from .arp.spoofer import *
+    from phonyARP.modules.banner import banner
+    from phonyARP.modules.cli import cli
+    from phonyARP.modules.arp.spoofer import *
     
 except ImportError as e:
     print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
