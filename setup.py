@@ -11,8 +11,8 @@ setup(
     install_requires=[
         'art==6.4',
         'colorama==0.4.6',
-        'scapy==2.6.1',
-        'requests==2.32.3'
+        'scapy>=2.6.1',
+        'requests>=2.32.3'
     ],
     entry_points={
         "console_scripts":[
