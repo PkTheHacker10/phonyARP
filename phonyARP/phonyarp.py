@@ -63,6 +63,7 @@ class Phonyhandler():
                         
                 except PermissionError:
                     print(f"{bright}{blue}INFO:{reset}Permission error. Run it as a root or administartor{e}")
+                    exit()
                         
                 except KeyboardInterrupt:
                     # Ro signal threads to stop.
