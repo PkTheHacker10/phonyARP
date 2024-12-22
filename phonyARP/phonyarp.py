@@ -1,5 +1,5 @@
 from colorama import Fore,Style
-from .modules.handler import Phonyhandler
+from modules.handler import Phonyhandler
 
 red=Fore.RED
 blue=Fore.BLUE
