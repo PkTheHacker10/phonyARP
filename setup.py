@@ -16,7 +16,7 @@ setup(
     ],
     entry_points={
         "console_scripts":[
-            "phonyARP=arpspoof3r:main"
+            "phonyARP=arpspoof3r"
         ],
     }
 )
