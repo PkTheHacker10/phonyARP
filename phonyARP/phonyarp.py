@@ -1,5 +1,5 @@
 from colorama import Fore,Style
-from modules.handler import Phonyhandler
+from phonyARP.modules.handler import Phonyhandler
 
 red=Fore.RED
 blue=Fore.BLUE
@@ -10,6 +10,7 @@ reset=Style.RESET_ALL
 def main():
     #Function will call phonyhandler.
     try:
+        print("Inside Main")
         phonyhandler=Phonyhandler()
         phonyhandler.start()
         

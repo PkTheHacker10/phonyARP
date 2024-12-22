@@ -13,9 +13,9 @@ reset=Style.RESET_ALL
 stop_event=Event()
 
 try:
-    from modules.banner import banner
-    from modules.cli import cli
-    from modules.arp.spoofer import *
+    from .banner import banner
+    from .cli import cli
+    from .arp.spoofer import *
     
 except ImportError as e:
     print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
