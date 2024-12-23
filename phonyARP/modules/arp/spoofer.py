@@ -28,7 +28,7 @@ def get_mac_addr(ip):
                 return None
             
         except PermissionError:
-            print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permited.{reset}\n{blue}  Run it as a superuser.{reset}")
+            print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
             exit(1) 
       
     except Exception as e:
