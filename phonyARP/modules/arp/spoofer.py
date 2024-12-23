@@ -62,6 +62,7 @@ def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
         except Exception as e:
             print(f"{bright}{blue}INFO:{reset}Unexpected Spoof restorer Error:{e}")
             break    
+        
     print(f"{bright}{yellow}\n [+] {reset}{blue}Target restoration {bright}status: {green}Done{reset}")
     print(f"{bright}{yellow} [+] {reset}{blue}Gateway restoration {bright}status: {green}Done{reset}")    
     

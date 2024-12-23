@@ -1,5 +1,4 @@
 from setuptools import setup,find_packages
-print(find_packages()) 
 with open("README.md","r",encoding="utf-8") as file:
     tool_description=file.read()
 setup(

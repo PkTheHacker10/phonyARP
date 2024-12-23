@@ -68,5 +68,3 @@ def get_version():
     except requests.JSONDecodeError:
         print(f"{bold}{white}[{reset}{blue}INFO{reset}{bold}{white}]{reset} : {white}Couldn't decode data{reset}.")
         
-ar=args()
-print(ar)

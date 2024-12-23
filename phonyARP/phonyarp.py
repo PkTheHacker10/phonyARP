@@ -21,7 +21,7 @@ def main():
     phonyarp_bannner=banner.banner()
     print(phonyarp_bannner)
     
-    if os.getuid !=0:
+    if os.getuid() !=0:
        print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
        exit(1)
        
