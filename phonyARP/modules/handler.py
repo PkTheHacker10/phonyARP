@@ -51,13 +51,19 @@ class Phonyhandler():
                     
                     try:
                         target_mac=get_mac_addr(target_ip)
+                        
+                    except PermissionError as e:
+                        print(f"Error: {e}")
+                        exit(1) 
+                                           
+                    try:
                         gateway_mac=get_mac_addr(gateway_ip)
                         
                     except PermissionError as e:
                         print(f"Error: {e}")
                         exit(1)
                     
-                    if target_ip==1 and gateway_mac==1 :
+                    if target_ip==1 and gateway_mac==1:
                         # Check the given ip is reachable or not.
                         print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {bright}{red}Failed{reset} \n{bright}{yellow} [+]{reset} {blue}Check the ip is correct or not.\n{reset}")
                         exit(1)
