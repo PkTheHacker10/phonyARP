@@ -1,4 +1,3 @@
-import os
 from colorama import Fore,Style
 from phonyARP.modules.handler import Phonyhandler
 
@@ -20,18 +19,12 @@ def main():
     #Function will call phonyhandler.
     phonyarp_bannner=banner.banner()
     print(phonyarp_bannner)
-    
-    if os.getuid() !=0:
-       print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
-       exit(1)
-       
-    else: 
-        try:
-            phonyhandler=Phonyhandler()
-            phonyhandler.start()
+    try:
+        phonyhandler=Phonyhandler()
+        phonyhandler.start()
             
-        except KeyboardInterrupt:
-            print(f"{bright}{yellow} [+] {reset}{blue}: Quiting...\n")
+    except KeyboardInterrupt:
+        print(f"{bright}{yellow} [+] {reset}{blue}: Quiting...\n")
     
 if __name__=="__main__":
     main()

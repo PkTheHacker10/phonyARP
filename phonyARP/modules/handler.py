@@ -1,3 +1,4 @@
+import os
 import sys
 from threading import Thread,Event
 from colorama import Fore,Style 
@@ -32,11 +33,15 @@ class Phonyhandler():
             interface=cli.args().interface
             target_ip=cli.args().target
             gateway_ip=cli.args().gateway
-            
+                
             if cli.args().help:
                 print(cli.help())
                 exit()
                 
+            if os.getuid() !=0:
+                print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+                exit(1)
+                    
             if cli.args().version:
                 version=cli.get_version()
                 print(f"""
