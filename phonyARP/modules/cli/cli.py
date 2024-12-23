@@ -37,7 +37,7 @@ def help():
     return f"""\n
 {bold}{white}[{reset}{bold}{blue}DESCRIPTION{reset}{white}]{reset}: {white}{bold}PhonyArp{reset} {white}is a tool which is purely meant for ARPSpoofing by {reset}{bold}{green}PkTheHacker10{reset}.\n
     {bold}{white}[{reset}{bold}{blue}Usage{reset}{white}]{reset}:{sys.argv[0]} -i <interface> -t <target> -g <gateway>\n
-            {white}phonyarp {bold}{white}[{reset}{bold}{blue}flags{reset}{bold}{white}]\n
+            {white}phonyARP {bold}{white}[{reset}{bold}{blue}flags{reset}{bold}{white}]\n
     [{reset}{bold}{blue}flags{reset}{bold}{white}]
                 
             [{reset}{bold}{blue}input{reset}{bold}{white}]{reset}
@@ -55,17 +55,18 @@ def get_version():
     #funtion which is used to get the version (tag) from github through api
     #TODO chang the url after relese it .
     try:
-        url="https://api.github.com/repos/PkTheHacker10/phonyARP"
+        url="https://api.github.com/repos/PkTheHacker10/phonyARP/releases/latest"
         response=requests.get(url,timeout=3,verify=True)
         if response.status_code==200:
             json_data=response.json()
             latest=json_data.get('tag_name')
             return latest
-        else:
-            return "v0.0.1"
         
     except (requests.ConnectTimeout,requests.ReadTimeout,requests.Timeout):
         print(f"{bold}{white}[{reset}{blue}INFO{reset}{bold}{white}]{reset} : {white}Connection TimeOut while getting version{reset}.")
         
     except requests.JSONDecodeError:
         print(f"{bold}{white}[{reset}{blue}INFO{reset}{bold}{white}]{reset} : {white}Couldn't decode data{reset}.")
+        
+ar=args()
+print(ar)

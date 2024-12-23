@@ -19,19 +19,21 @@ def get_mac_addr(ip):
         ether_frame=Ether(dst="ff:ff:ff:ff:ff:ff")
         arp_packet=ARP(pdst=ip)
         sent_packet=ether_frame/arp_packet
-        answer,unanswer=srp(sent_packet,verbose=False,timeout=2)
-        if answer[0]:
-            return answer[0].answer.src
-    
-    except IndexError:
-        return 1
-    
-    except PermissionError:
-        raise PermissionError
         
+        try:
+            answer,unanswer=srp(sent_packet,verbose=False,timeout=2)
+            if answer[0]:
+                return answer[0].answer.src
+            else:
+                return None
+            
+        except PermissionError:
+            print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+            exit(1) 
+      
     except Exception as e:
         print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
-        return 1
+        return None
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
     # Funtion to restore spoofed arp table(both target and gateway) to back its original.
@@ -54,7 +56,9 @@ def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
                                                                    pdst=target_ip
                                                                    )
             sendp(gateway_arp_restore_rpacket,iface=interface,verbose=False)
-            
+        except TypeError:
+            pass    
+        
         except Exception as e:
             print(f"{bright}{blue}INFO:{reset}Unexpected Spoof restorer Error:{e}")
             break    
