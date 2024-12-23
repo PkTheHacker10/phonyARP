@@ -37,6 +37,13 @@ class Phonyhandler():
                 print(cli.help())
                 exit()
                 
+            if cli.args().version:
+                version=cli.get_version()
+                print(f"""
+                      phonyARP is a arp spoofing tool which is created by {green}PkTheHacker10{reset} which is currently runing on the version ( {green}{version}{reset} ) .
+                      """)
+                exit()          
+                  
             if (interface is not None) and (target_ip is not None) and (gateway_ip is not None):
                 try:
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Spoofing started{reset} {blue}({reset} {bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}] {blue}){reset}")
@@ -62,7 +69,7 @@ class Phonyhandler():
                         gateway_spoof_thread.join()
                         
                 except PermissionError:
-                    print(f"{bright}{blue}INFO:{reset}Permission error. Run it as a root or administartor{e}")
+                    print(f"Error: {e}")
                     exit(1)
                         
                 except KeyboardInterrupt:
