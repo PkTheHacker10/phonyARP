@@ -40,7 +40,7 @@ class Phonyhandler():
             if cli.args().version:
                 version=cli.get_version()
                 print(f"""
-                      phonyARP is a arp spoofing tool which is created by {green}PkTheHacker10{reset} which is currently runing on the version ( {green}{version}{reset} ) .
+    phonyARP is a arp spoofing tool which is created by {bright}{green}PkTheHacker10{reset}. \nWhich is currently runing on the version ( {green}{version}{reset} ) .
                       """)
                 exit()          
                   
@@ -68,7 +68,7 @@ class Phonyhandler():
                         target_spoof_thread.join()
                         gateway_spoof_thread.join()
                         
-                except PermissionError:
+                except PermissionError as e:
                     print(f"Error: {e}")
                     exit(1)
                         
