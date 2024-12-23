@@ -48,8 +48,14 @@ class Phonyhandler():
                 try:
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Spoofing started{reset} {blue}({reset} {bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}] {blue}){reset}")
                     print(f"{bright}{yellow} [+] {reset}{blue}MAC resolution {green}{bright}started{reset}")
-                    target_mac=get_mac_addr(target_ip)
-                    gateway_mac=get_mac_addr(gateway_ip)
+                    
+                    try:
+                        target_mac=get_mac_addr(target_ip)
+                        gateway_mac=get_mac_addr(gateway_ip)
+                        
+                    except PermissionError as e:
+                        print(f"Error: {e}")
+                        exit(1)
                     
                     if target_ip==1 and gateway_mac==1 :
                         # Check the given ip is reachable or not.
@@ -67,10 +73,6 @@ class Phonyhandler():
                         
                         target_spoof_thread.join()
                         gateway_spoof_thread.join()
-                        
-                except PermissionError as e:
-                    print(f"Error: {e}")
-                    exit(1)
                         
                 except KeyboardInterrupt:
                     # To signal threads to stop.
