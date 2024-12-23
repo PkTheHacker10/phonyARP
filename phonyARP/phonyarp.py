@@ -10,7 +10,6 @@ reset=Style.RESET_ALL
 def main():
     #Function will call phonyhandler.
     try:
-        print("Inside Main")
         phonyhandler=Phonyhandler()
         phonyhandler.start()
         

@@ -54,7 +54,7 @@ class Phonyhandler():
                     
                         print(f"{bright}{yellow} [+] {reset}{blue}Gateway spoof {bright}status:{green}running{reset}")
                         gateway_spoof_thread=Thread(target=arp_spoofer,args=(gateway_ip,gateway_mac,target_ip,interface))
-                        
+                        # Spoofing threads 
                         target_spoof_thread.start()
                         gateway_spoof_thread.start()
                         
@@ -63,10 +63,10 @@ class Phonyhandler():
                         
                 except PermissionError:
                     print(f"{bright}{blue}INFO:{reset}Permission error. Run it as a root or administartor{e}")
-                    exit()
+                    exit(1)
                         
                 except KeyboardInterrupt:
-                    # Ro signal threads to stop.
+                    # To signal threads to stop.
                     stop_event.set()  
                     target_spoof_thread.join()
                     gateway_spoof_thread.join()
@@ -93,6 +93,7 @@ class Phonyhandler():
 
             
     def start(self):
+        # Starter funtion
         try:
             phonyarp_bannner=banner.banner()
             print(phonyarp_bannner)
