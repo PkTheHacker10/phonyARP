@@ -26,13 +26,15 @@ def get_mac_addr(ip):
                 return answer[0].answer.src
             else:
                 return None
-            
+        except IndexError:
+                print(f"{bright}{yellow} [+] {reset}{red}Invalid ip: {reset}{blue}Verify the ip is alive and in the same network.{reset}")
+                exit(1)  
         except Exception as e:
-            print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
+            print(f"{bright}{yellow} [+] {reset}{red}Unexpected Mac resolution Error:{e}")
             exit(1) 
       
     except Exception as e:
-        print(f"{bright}{blue}INFO:{reset}Unexpected get_mac_addr Error:{e}")
+        print(f"{bright}{yellow} [+] {reset}{red}Unexpected get_mac_addr Error:{e}")
         return None
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
@@ -60,7 +62,7 @@ def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):
             pass    
         
         except Exception as e:
-            print(f"{bright}{blue}INFO:{reset}Unexpected Spoof restorer Error:{e}")
+            print(f"{bright}{yellow} [+] {reset}{red}Unexpected Spoof restorer Error:{e}")
             break    
         
     print(f"{bright}{yellow}\n [+] {reset}{blue}Target restoration {bright}status: {green}Done{reset}")
@@ -75,5 +77,5 @@ def arp_spoofer(target_ip,target_mac,spoof_ip,interface):
             sleep(0.1)
             
         except Exception as e:
-            print(f"{bright}{blue}INFO:{reset}Unexpected Spoof Error:{e}")
+            print(f"{bright}{yellow} [+] {reset}{red}Unexpected Spoofing Error:{e}")
             break

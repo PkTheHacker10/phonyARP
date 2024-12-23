@@ -7,7 +7,9 @@ red=Fore.RED
 blue=Fore.BLUE
 white=Fore.WHITE
 magenta=Fore.MAGENTA
+bright=Style.BRIGHT
 green=Fore.GREEN
+red=Fore.RED
 bold=Style.BRIGHT
 reset=Style.RESET_ALL
 
@@ -24,13 +26,13 @@ def args():
         return args
     
     except argparse.ArgumentError:
-        print(f"{bold}{blue}INFO:{reset}Please use -h to get more information.")
+        print(f"{bright}{red}\n [+] {reset}{blue}Please use -h to get more information.")
         
     except argparse.ArgumentTypeError:
-        print(f"{bold}{blue}INFO:{reset}Please use -h to get more information.")
+        print(f"{bright}{blue}\n [+] {reset}{blue}Please use -h to get more information.")
         
     except Exception as e:
-        print(f"{bold}{blue}INFO:{reset}Unexpected Argument Error:{e}")
+        print(f"{bright}{red}\n [+] {reset}{blue}Unexpected Argument Error:{e}")
         
 def help():
     # Funtion to create and return the available options and flags.
@@ -63,8 +65,8 @@ def get_version():
             return latest
         
     except (requests.ConnectTimeout,requests.ReadTimeout,requests.Timeout):
-        print(f"{bold}{white}[{reset}{blue}INFO{reset}{bold}{white}]{reset} : {white}Connection TimeOut while getting version{reset}.")
+        print(f"{bright}{blue}\n [+] {reset} : Connection TimeOut while getting version.")
         
     except requests.JSONDecodeError:
-        print(f"{bold}{white}[{reset}{blue}INFO{reset}{bold}{white}]{reset} : {white}Couldn't decode data{reset}.")
+        print(f"{bright}{red}\n [+] {reset} : Couldn't decode data.")
         

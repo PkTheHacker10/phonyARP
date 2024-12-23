@@ -13,7 +13,7 @@ try:
     from phonyARP.modules.banner import banner
     
 except ImportError as e:
-    print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
+    print(f"{bright}{yellow} [+] {reset} :{red}Could't import :{e}{reset}")
     exit(1)
     
 def main():
@@ -22,7 +22,7 @@ def main():
     print(phonyarp_bannner)
     
     if os.getuid() !=0:
-       print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+       print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
        exit(1)
        
     else: 
@@ -31,7 +31,7 @@ def main():
             phonyhandler.start()
             
         except KeyboardInterrupt:
-            print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n")
+            print(f"{bright}{yellow} [+] {reset}{blue}: Quiting...\n")
     
 if __name__=="__main__":
     main()

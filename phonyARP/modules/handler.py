@@ -13,13 +13,13 @@ reset=Style.RESET_ALL
 stop_event=Event()
 
 try:
-    from phonyARP.modules.banner import banner
+    
     from phonyARP.modules.cli import cli
     from phonyARP.modules.arp.spoofer import *
     
 except ImportError as e:
-    print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
-    exit()
+    print(f"{bright}{yellow} [+] {reset}{blue}Could't import :{e}")
+    exit(1)
     
 except KeyboardInterrupt:
     print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting before start :(")
@@ -85,19 +85,19 @@ class Phonyhandler():
                     spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface)
 
             else:
-                print(f"[{bright}{red}ERROR{reset}]: Missing required argumets.")
-                print(f" Usage :{sys.argv[0]} -i <interface> -t <target> -g <gateway>\n Use --help for more information.\n")
+                print(f"{bright}{red} [ ERROR ]{reset}: Missing required argumets.")
+                print(f" {bright}{blue} Usage :{sys.argv[0]} {reset}-i {red}<interface>{reset} -t {red}<target>{reset} -g {red}<gateway>{reset}\n {blue}Use --help for more information.{reset}\n")
                 exit(1)
                 
         except KeyboardInterrupt:
-            print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n") 
+            print(f"{bright}{yellow} [+] {reset}{red}: Quiting...\n") 
             
         except NameError:
             # To prevent from quick exit.
             pass    
         
         except Exception as e:
-            print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Unexpected Handler Error :{e}\n")
+            print(f"{bright}{yellow} [+] {reset}{red}: Unexpected Handler Error :{e}\n")
 
             
     def start(self):
@@ -110,5 +110,5 @@ class Phonyhandler():
             pass
         
         except KeyboardInterrupt:
-            print(f"{bright}{white}[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting...\n")
+            print(f"{bright}{yellow} [+] {reset}{blue}: Quiting...\n")
         

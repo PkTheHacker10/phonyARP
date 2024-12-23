@@ -15,7 +15,7 @@ reset=Style.RESET_ALL
 
 def banner():
     # Function to create and return the banner of the tool.
-    name="PhonyARP"
+    name="  PhonyARP"
     all_fonts=["graffiti","slant","speed","ogre","Poison","Star Wars","Ghost","Lean","Doom","Varsity","Alligator","Rectangles"]
     all_colour=[red,blue,yellow,cyan,mixed,magenta]
     selected_colour=choice(all_colour)
