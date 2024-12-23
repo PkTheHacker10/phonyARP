@@ -27,12 +27,12 @@ def get_mac_addr(ip):
             else:
                 return None
             
-        except PermissionError:
-            print(f"{bright}{yellow}\n [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+        except Exception as e:
+            print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
             exit(1) 
       
     except Exception as e:
-        print(f"{bright}{blue}INFO:{reset}Unexpected Mac resolution Error:{e}")
+        print(f"{bright}{blue}INFO:{reset}Unexpected get_mac_addr Error:{e}")
         return None
     
 def spoof_restorer(target_ip,target_mac,gateway_ip,gateway_mac,interface):

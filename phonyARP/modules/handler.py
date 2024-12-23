@@ -19,7 +19,7 @@ try:
     
 except ImportError as e:
     print(f"{bright}{blue}INFO:{reset}Could't import :{e}")
-    sys.exit()
+    exit()
     
 except KeyboardInterrupt:
     print(f"{bright}{white}\n[{reset}{blue}INFO{reset}{bright}{white}]{reset}: Quiting before start :(")
@@ -103,8 +103,6 @@ class Phonyhandler():
     def start(self):
         # Starter funtion
         try:
-            phonyarp_bannner=banner.banner()
-            print(phonyarp_bannner)
             self.handler()
             
         except NameError:
