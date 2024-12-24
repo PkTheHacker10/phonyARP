@@ -38,16 +38,16 @@ class Phonyhandler():
                 print(cli.help())
                 exit()
                 
-            if os.getuid() !=0:
-                print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
-                exit(1)
-                    
             if cli.args().version:
                 version=cli.get_version()
                 print(f"""
     phonyARP is a arp spoofing tool which is created by {bright}{green}PkTheHacker10{reset}. \nWhich is currently runing on the version ( {green}{version}{reset} ) .
                       """)
-                exit()          
+                exit()    
+                               
+            if os.getuid() !=0:
+                print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+                exit(1)          
                   
             if (interface is not None) and (target_ip is not None) and (gateway_ip is not None):
                 try:

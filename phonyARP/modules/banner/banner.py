@@ -1,6 +1,6 @@
 from colorama import Back,Fore,Style
 from random import choice
-from art import text2art # type: ignore
+from art import text2art 
 
 red=Fore.RED
 green=Fore.GREEN

@@ -1,4 +1,4 @@
-from threading import Lock,Event
+from threading import Event
 from scapy.all import Ether,ARP,sendp,srp
 from time import sleep
 from colorama import Fore,Style
@@ -22,13 +22,16 @@ def get_mac_addr(ip):
         
         try:
             answer,unanswer=srp(sent_packet,verbose=False,timeout=2)
-            if answer[0]:
-                return answer[0].answer.src
-            else:
-                return None
-        except IndexError:
-                print(f"{bright}{yellow} [+] {reset}{red}Invalid ip: {reset}{blue}Verify the ip is alive and in the same network.{reset}")
-                exit(1)  
+            try:
+                if answer[0]:
+                    return answer[0].answer.src
+                else:
+                    return None
+            
+            except IndexError:
+                    print(f"{bright}{yellow} [+] {reset}{red}Invalid ip: {reset}{blue}Verify the ip is alive and in the same network{reset}")
+                    exit(1)  
+                
         except Exception as e:
             print(f"{bright}{yellow} [+] {reset}{red}Unexpected Mac resolution Error:{e}")
             exit(1) 
