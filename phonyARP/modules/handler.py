@@ -15,9 +15,9 @@ stop_event=Event()
 
 try:
     
-    from phonyARP.modules.cli.cli import cli
-    from phonyARP.modules.spoofer.arp.spoofer import *
-    from phonyARP.modules.spoofer.ping_sweep.sweeper import sweeper
+    from phonyARP.modules.cli import cli
+    from spoofer.arp.spoofer import *
+    from spoofer.ping_sweep.sweeper import sweeper
     
 except ImportError as e:
     print(f"{bright}{yellow} [+] {reset}{blue}Could't import :{e}")
