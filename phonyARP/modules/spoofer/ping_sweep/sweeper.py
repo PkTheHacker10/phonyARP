@@ -45,8 +45,8 @@ def arp(ip):
         else:
             return None
         
-    except PermissionError:
-        print(f"{bright}{yellow} [+] {reset}{blue}Permission error: Run it as root")
+    except Exception as e:
+        print(f"{bright}{yellow} [+] {reset}{blue}Unexpected Error in sweeper.arp: {e}")
         exit()
         
     except Exception as e:
