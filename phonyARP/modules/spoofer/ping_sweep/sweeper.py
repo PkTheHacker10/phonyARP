@@ -13,7 +13,8 @@ green=Fore.GREEN
 reset=Style.RESET_ALL
 
 def hostbyip():
-    return socket.gethostbyname(socket.gethostname())
+    ip_obj = run(["hostname", "-I"], capture_output=True, text=True)
+    return ip_obj.stdout.strip()
 
 def cidr_calculator(ip):
     # Funtion to default subnetmask.
