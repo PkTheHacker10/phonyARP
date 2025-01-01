@@ -1,5 +1,4 @@
 from subprocess import run
-from platform import system
 from netaddr import IPNetwork,AddrFormatError
 from concurrent.futures import ThreadPoolExecutor
 from scapy.all import ARP, Ether, srp

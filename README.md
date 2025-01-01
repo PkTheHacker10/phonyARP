@@ -10,6 +10,9 @@ PhonyARP is a python tool is used for ARP spoofing or ARP poisoning which is dev
 - threading
 - scrapy
 - requests
+- socket
+- netaddr
+- subprocess
 - argparser
 - colorama
 - time
@@ -68,7 +71,8 @@ This will install the tool in your system.
                     
             [debug]
                    
-                -v,   --version                 :  to check version of this tool. 
+                -v,   --version                 :  to check version of this tool.
+		-sN,  --scan-network            :  To scan network to find alive hosts.
                 -h,   --help                    :  to see all the available options.
 ```
 ## Sample output :-
