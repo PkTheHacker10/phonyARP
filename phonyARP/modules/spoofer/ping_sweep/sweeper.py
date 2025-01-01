@@ -1,8 +1,8 @@
-import socket
 from subprocess import run
 from platform import system
 from netaddr import IPNetwork,AddrFormatError
 from concurrent.futures import ThreadPoolExecutor
+from scapy.all import ARP, Ether, srp
 from colorama import Fore,Style
 
 blue=Fore.BLUE
@@ -35,16 +35,12 @@ def range_calculator(cidr):
         print(f"{bright}{yellow} [+] {reset}{blue}Unexpected exception :Address formate error.")
         exit(1)
 
-def ping(ip):
+def arp(ip):
     try:
         print(f"\r{bright}{yellow} [+] {reset}{green}Scanning ip :{reset}{ip}",end="")
-        count_flag=""
-        if system().lower() =='linux':
-            count_flag="-c"
-        else:
-            count_flag="-n"
-        result=run(["ping",ip,count_flag,"1","-W","1"],capture_output=True)
-        if result.returncode ==0:
+        pkt = Ether(dst="ff:ff:ff:ff:ff:ff") / ARP(pdst=ip)
+        result = srp(pkt, timeout=1, verbose=0)[0]
+        if result:
             return ip
         else:
             return None
@@ -68,7 +64,7 @@ def sweeper():
         with ThreadPoolExecutor(max_workers=40) as thread:
              results=thread.map(
                  lambda ip:
-                     ping(ip),
+                     arp(ip),
                      [str(ip) for ip in ip_list])
              for result in results:
                 if result is not None and result != ip:
