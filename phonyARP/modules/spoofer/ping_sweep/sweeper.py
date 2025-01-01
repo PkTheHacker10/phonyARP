@@ -46,7 +46,8 @@ def arp(ip):
             return None
         
     except PermissionError:
-        print(f"{bright}{yellow} [+] {reset}{blue}Permission error.")
+        print(f"{bright}{yellow} [+] {reset}{blue}Permission error: Run it as root")
+        exit()
         
     except Exception as e:
         print(f"{bright}{yellow} [+] {reset}{blue}Unexpected error on sweeper.ping:{e}")

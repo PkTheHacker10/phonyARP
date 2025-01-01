@@ -46,7 +46,11 @@ class Phonyhandler():
     phonyARP is a arp spoofing tool which is created by {bright}{green}PkTheHacker10{reset}. \nWhich is currently runing on the version ( {green}{version}{reset} ) .
                       """)
                 exit()    
-                
+                              
+            if os.getuid() !=0:
+                print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
+                exit(1)   
+                       
             if arguments.scan_network:
                 print(f"{bright}{yellow}\n [+] {reset}{blue}Network scanning started.{reset}")
                 try:
@@ -58,11 +62,7 @@ class Phonyhandler():
                 except Exception as e:
                     print(f"{bright}{yellow} [+] {reset}{red}Unexpected Handler Error :{e}\n")
                     exit()
-                              
-            if os.getuid() !=0:
-                print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
-                exit(1)          
-                  
+                    
             if (interface is not None) and (target_ip is not None) and (gateway_ip is not None):
                 try:
                     print(f"{bright}{yellow}\n [+] {reset}{blue}Spoofing started{reset} {blue}({reset} {bright}{red}Target{reset} :[{target_ip}] {bright}{red}Gateway{reset} :[{gateway_ip}] {bright}{red}Interface{reset} :[{interface}] {blue}){reset}")
