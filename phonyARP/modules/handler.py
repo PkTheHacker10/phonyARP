@@ -15,8 +15,9 @@ stop_event=Event()
 
 try:
     
-    from phonyARP.modules.cli import cli
-    from phonyARP.modules.arp.spoofer import *
+    from phonyARP.modules.cli.cli import cli
+    from phonyARP.modules.spoofer.arp.spoofer import *
+    from phonyARP.modules.spoofer.ping_sweep.sweeper import sweeper
     
 except ImportError as e:
     print(f"{bright}{yellow} [+] {reset}{blue}Could't import :{e}")
@@ -30,10 +31,11 @@ class Phonyhandler():
     def handler(self):
         # Handler funtion for phony ARP.  
         try:
-            interface=cli.args().interface
-            target_ip=cli.args().target
-            gateway_ip=cli.args().gateway
-                
+            arguments=cli.args()
+            interface=arguments.interface
+            target_ip=arguments.target
+            gateway_ip=arguments.gateway
+
             if cli.args().help:
                 print(cli.help())
                 exit()
@@ -44,7 +46,15 @@ class Phonyhandler():
     phonyARP is a arp spoofing tool which is created by {bright}{green}PkTheHacker10{reset}. \nWhich is currently runing on the version ( {green}{version}{reset} ) .
                       """)
                 exit()    
-                               
+                
+            if arguments.scan_network:
+                print(f"{bright}{yellow}\n [+] {reset}{blue}Network scanning started.{reset}")
+                ip_list=sweeper()
+                print(f"\n{bright}{yellow} [+] {reset}{blue}Active hosts:{reset}")
+                for active_ip in ip_list:
+                    print(f"{green}{bright}  =>{reset}   {active_ip}")
+                exit()
+                              
             if os.getuid() !=0:
                 print(f"{bright}{yellow} [+] {reset}{bright}{red}Permission error Operation not permitted.{reset}\n{blue}     Run it from superuser privilege.{reset}")
                 exit(1)          
@@ -117,3 +127,6 @@ class Phonyhandler():
         except KeyboardInterrupt:
             print(f"{bright}{yellow} [+] {reset}{blue}: Quiting...\n")
         
+if __name__ =="__main__":
+    test=Phonyhandler()
+    test.start()

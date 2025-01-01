@@ -20,7 +20,7 @@ def args():
         parser.add_argument("-i","--interface",type=str)
         parser.add_argument("-t","--target",type=str)
         parser.add_argument("-g","--gateway",type=str)
-        
+        parser.add_argument("-sN","--scan-network",action="store_true")
         parser.add_argument("-v","--version",action="store_true")
         parser.add_argument("-h","--help",action="store_true")
         args=parser.parse_args()

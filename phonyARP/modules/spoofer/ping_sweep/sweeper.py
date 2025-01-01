@@ -1,14 +1,12 @@
 import socket
 from subprocess import run
 from platform import system
-from netaddr import IPNetwork
+from netaddr import IPNetwork,AddrFormatError
 from concurrent.futures import ThreadPoolExecutor
 from colorama import Fore,Style
 
-red=Fore.RED
 blue=Fore.BLUE
 bright=Style.BRIGHT
-white=Fore.WHITE
 yellow=Fore.YELLOW
 red=Fore.RED
 green=Fore.GREEN
@@ -30,11 +28,15 @@ def cidr_calculator(ip):
         return None
     
 def range_calculator(cidr):
-    return [str(ip)for ip in list(IPNetwork(cidr))]
+    try:
+        return [str(ip)for ip in list(IPNetwork(cidr))]
+    except AddrFormatError:
+        print(f"{bright}{yellow} [+] {reset}{blue}Unexpected exception :Address formate error.")
+        exit(1)
 
 def ping(ip):
     try:
-        print(f"\r Scanning ip {ip}",end="")
+        print(f"\r{bright}{yellow} [+] {reset}{green}Scanning ip :{reset}{ip}",end="")
         count_flag=""
         if system().lower() =='linux':
             count_flag="-c"
@@ -54,8 +56,11 @@ def ping(ip):
 
 
 
-def sweeper(ip_list):
+def sweeper():
     alive_host=[]
+    ip=hostbyip()
+    cidr=cidr_calculator(ip)
+    ip_list=range_calculator(cidr)
     ip_count=len(ip_list)
     if ip_count>1:
         #default_thread_count=default_thread_count//2
@@ -65,17 +70,12 @@ def sweeper(ip_list):
                      ping(ip),
                      [str(ip) for ip in ip_list])
              for result in results:
-                if result is not None:
+                if result is not None and result != ip:
                      alive_host.append(result)
-    return alive_host
+        return alive_host
+    else:
+        return None
 
 
-if __name__=="__main__":
-    ip=hostbyip()
-    cidr=cidr_calculator(hostbyip())
-    ip_list=range_calculator(cidr)
-    alive_host=sweeper(ip_list)
-    print(f"Cidr : {cidr}")
-    print(f"Alive hosts: {alive_host}")
     
     
