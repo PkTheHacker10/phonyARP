@@ -20,6 +20,7 @@ def args():
         parser.add_argument("-i","--interface",type=str)
         parser.add_argument("-t","--target",type=str)
         parser.add_argument("-g","--gateway",type=str)
+        
         parser.add_argument("-v","--version",action="store_true")
         parser.add_argument("-h","--help",action="store_true")
         args=parser.parse_args()
@@ -44,18 +45,18 @@ def help():
                 
             [{reset}{bold}{blue}input{reset}{bold}{white}]{reset}
             
-                -i,   --interface               :  interface is used to send spoofed arp packets. [mandatory]  
-                -t,   --target                  :  target ip to spoof the arp table.              [mandatory]
-                -g,   --gateway                 :  gatway ip to imprisonate to the target.        [mandatory]
+                -i,   --interface               :  Interface is used to send spoofed arp packets. [mandatory]  
+                -t,   --target                  :  Target ip to spoof the arp table.              [mandatory]
+                -g,   --gateway                 :  Gatway ip to imprisonate to the target.        [mandatory]
                     
             {bold}{white}[{reset}{bold}{blue}debug{reset}{bold}{white}]{reset}
                    
-                -v,   --version                 :  to check version of this tool. 
-                -h,   --help                    :  to see all the available options.
+                -v,   --version                 :  To check version of this tool. 
+                -sN,  --scan-network            :  To scan network to find alive hosts.
+                -h,   --help                    :  To see all the available options.
           """
 def get_version():
-    #funtion which is used to get the version (tag) from github through api
-    #TODO chang the url after relese it .
+    #funtion which is used to get the version (tag) from github through api.
     try:
         url="https://api.github.com/repos/PkTheHacker10/phonyARP/releases/latest"
         response=requests.get(url,timeout=3,verify=True)
