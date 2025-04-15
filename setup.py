@@ -5,7 +5,7 @@ setup(
     name="phonyARP",
     version='0.0.1',
     author="pk_the_hacker",
-    author_email="pevinbalaji@gmail.com",
+    author_email="",
     description=tool_description,
     packages=find_packages(),
     install_requires=[
